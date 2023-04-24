@@ -11,7 +11,26 @@
   opacity: 0;
   transform: translateX(30px);
 }
-
+// 过渡动画 横向渐变
+.fade-transverse-quick-leave-active {
+  /* transition: all .2s; */
+  /* transition: transform .3s ease, opacity .2s; */
+}
+.fade-transverse-quick-enter-active {
+  /* transition: all .2s; */
+  transition: transform .3s ease, opacity .2s;
+}
+.fade-transverse-quick-enter {
+  opacity: 0;
+  /* transform: translateX(-10px); */
+  transform: translateY(10px);
+}
+.fade-transverse-quick-leave-to {
+  opacity: 0;
+  /* transform: translateX(10px); */
+  transform: translateY(-10px);
+  // transition: opacity 0s;
+}
 // 过渡动画 缩放渐变
 .fade-scale-leave-active,
 .fade-scale-enter-active {

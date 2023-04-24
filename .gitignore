@@ -4,3 +4,8 @@
 
 .history/
 .vscode/
+
+.lh
+**/.lh
+web/.env.development
+web/pnpm-lock.yaml

@@ -68,6 +68,36 @@ export default {
         title: 'Tomorrow Night Blue (vsCode)',
         name: 'tomorrow-night-blue',
         preview: 'image/theme/tomorrow-night-blue/preview@2x.jpg'
+      },
+      {
+        title: '简约',
+        name: 'simple',
+        preview: 'image/theme/simple/preview@2x.png'
+      },
+      {
+        title: '商务',
+        name: 'nova',
+        preview: 'image/theme/nova/preview@2x.png'
+      },
+      {
+        title: '控制台',
+        name: 'rypanelstyle',
+        preview: 'image/theme/nova/preview@2x.png'
+      },
+      {
+        title: '活力',
+        name: 'zen',
+        preview: 'image/theme/zen/preview@2x.png'
+      },
+      {
+        title: '亲和力',
+        name: 'round',
+        preview: 'image/theme/round/preview@2x.png'
+      },
+      {
+        title: 'Notion',
+        name: 'notion',
+        preview: 'image/theme/round/preview@2x.png'
       }
     ]
   },
