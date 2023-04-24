@@ -26,7 +26,21 @@
         </el-tabs>
       </div>
     </div>
-    <div class="d2-multiple-page-control-btn" flex-box="0">
+    <div class="d2-header-right" v-if="!showHeader" flex-box="0">
+      <!-- 如果你只想在开发环境显示这个按钮请添加 v-if="$env === 'development'" -->
+      <!-- <d2-header-collapse-toggle v-if="$env === 'development'"/> -->
+      <!-- <d2-header-header-toggle v-if="$env === 'development'"/> -->
+      <d2-header-search/>
+      <!-- <d2-header-log v-if="$env === 'development'"/> -->
+      <!-- <d2-header-fullscreen /> -->
+      <!-- <d2-header-theme v-if="$env === 'development'"/> -->
+      <!-- <d2-header-size v-if="$env === 'development'"/> -->
+      <!-- <d2-header-locales v-if="$env === 'development'"/> -->
+      <!-- <d2-header-color v-if="$env === 'development'"/> -->
+      <d2-header-message />
+      <d2-header-user />
+    </div>
+    <!-- <div class="d2-multiple-page-control-btn" flex-box="0">
       <el-dropdown
         size="default"
         split-button
@@ -52,7 +66,7 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -63,7 +77,18 @@ import Sortable from 'sortablejs'
 export default {
   components: {
     D2Contextmenu: () => import('../contextmenu'),
-    D2ContextmenuList: () => import('../contextmenu/components/contentmenuList')
+    D2ContextmenuList: () => import('../contextmenu/components/contentmenuList'),
+    d2HeaderCollapseToggle: () => import('../header-collapse-toggle'),
+    d2HeaderHeaderToggle: () => import('../header-header-toggle'),
+    d2HeaderLog: () => import('../header-log'),
+    // d2HeaderFullscreen: () => import('../header-fullscreen'),
+    d2HeaderTheme: () => import('../header-theme'),
+    d2HeaderMessage: () => import('../header-message'),
+    d2HeaderSize: () => import('../header-size'),
+    d2HeaderLocales: () => import('../header-locales'),
+    d2HeaderSearch: () => import('../header-search'),
+    d2HeaderColor: () => import('../header-color'),
+    d2HeaderUser: () => import('../header-user')
   },
   data () {
     return {
@@ -87,7 +112,10 @@ export default {
     ...mapState('d2admin/page', [
       'opened',
       'current'
-    ])
+    ]),
+    ...mapState('d2admin', {
+      showHeader: (state) => state.menu.showHeader
+    })
   },
   methods: {
     ...mapActions('d2admin/page', [
@@ -98,6 +126,19 @@ export default {
       'closeAll',
       'openedSort'
     ]),
+    ...mapActions('d2admin/menu', ['asideCollapseToggle', 'showHeaderToggle']),
+    /**
+     * 接收点击切换侧边栏的按钮
+     */
+    handleToggleAside () {
+      this.asideCollapseToggle()
+    },
+    /**
+     * 接收点击切换顶栏的按钮
+     */
+    handleShowHeader () {
+      this.showHeaderToggle()
+    },
     /**
      * @description 计算某个标签页是否可关闭
      * @param {Object} page 其中一个标签页

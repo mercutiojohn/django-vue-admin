@@ -78,6 +78,17 @@
         .d2-layout-header-aside-menu-side {
           @extend %full;
           overflow: hidden;
+
+          .logo-transition {
+            transition: width .3s;
+          }
+          .logo-group {
+            float: left;
+            text-align: center;
+            img {
+              height: 60px;
+            }
+          }
         }
       }
       .d2-theme-container-transition {
@@ -244,7 +255,7 @@
           height: 41px;
           // 多页面控制器
           .d2-multiple-page-control-group {
-            padding-right: 20px;
+            // padding-right: 20px;
             .d2-multiple-page-control-content {
               overflow: auto;
               position: relative;
@@ -257,6 +268,44 @@
                     overflow: hidden;
                   }
                 }
+              }
+            }
+            // 折叠侧边栏切换按钮
+            .toggle-aside-btn {
+              float: left;
+              height: 100%;
+              width: 33px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              @extend %unable-select;
+              i {
+                font-size: 20px;
+                margin-top: 4px;
+              }
+            }
+            // 顶栏右侧的按钮
+            .d2-header-right {
+              float: right;
+              height: 40px;
+              display: flex;
+              align-items: center;
+              .btn-text {
+                border: none !important;
+                // padding: 6px 8px;
+                min-width: 33px;
+                height: 28px;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                border-radius: 4px;
+                margin: 0 5px !important;
+                &.el-color-picker.el-color-picker--mini {
+                  padding: 9px 6px;
+                }
+              }
+              .el-dropdown {
+                @extend %unable-select;
               }
             }
             .d2-multiple-page-control-btn {
@@ -285,7 +334,8 @@
             .d2-container-full {
               position: absolute;
               top: 0px;
-              right: 20px;
+              right: 0px;
+              // right: 20px;
               bottom: 0px;
               left: 0px;
               display: flex;

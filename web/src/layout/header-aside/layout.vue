@@ -12,6 +12,7 @@
       <div
         class="d2-theme-header"
         :style="{ opacity: this.searchActive ? 0.5 : 1 }"
+        v-if="showHeader"
         flex-box="0"
         flex
       >
@@ -37,14 +38,15 @@
         <!-- 顶栏右侧 -->
         <div class="d2-header-right" flex-box="0">
           <!-- 如果你只想在开发环境显示这个按钮请添加 v-if="$env === 'development'" -->
-          <d2-header-search @click="handleSearchClick" />
-          <d2-header-log />
-          <d2-header-fullscreen />
-          <d2-header-theme />
+          <d2-header-header-toggle />
+          <d2-header-search/>
+          <d2-header-log v-if="$env === 'development'"/>
+          <!-- <d2-header-fullscreen /> -->
+          <d2-header-theme v-if="$env === 'development'"/>
+          <d2-header-size v-if="$env === 'development'"/>
+          <d2-header-locales v-if="$env === 'development'"/>
+          <d2-header-color v-if="$env === 'development'"/>
           <d2-header-message />
-          <d2-header-size />
-          <d2-header-locales />
-          <d2-header-color />
           <d2-header-user />
         </div>
       </div>
@@ -104,15 +106,18 @@
 import d2MenuSide from './components/menu-side'
 import d2MenuHeader from './components/menu-header'
 import d2Tabs from './components/tabs'
-import d2HeaderFullscreen from './components/header-fullscreen'
+
+import d2HeaderHeaderToggle from './components/header-header-toggle'
+// import d2HeaderFullscreen from './components/header-fullscreen'
 import d2HeaderLocales from './components/header-locales'
 import d2HeaderSearch from './components/header-search'
-import d2HeaderSize from './components/header-size'
-import d2HeaderTheme from './components/header-theme'
-import d2HeaderUser from './components/header-user'
 import d2HeaderLog from './components/header-log'
-import d2HeaderColor from './components/header-color'
+import d2HeaderTheme from './components/header-theme'
 import d2HeaderMessage from './components/header-message'
+import d2HeaderSize from './components/header-size'
+import d2HeaderColor from './components/header-color'
+import d2HeaderUser from './components/header-user'
+
 import { mapState, mapGetters, mapActions } from 'vuex'
 import mixinSearch from './mixins/search'
 export default {
@@ -122,15 +127,17 @@ export default {
     d2MenuSide,
     d2MenuHeader,
     d2Tabs,
-    d2HeaderFullscreen,
+    //
+    d2HeaderLog,
+    d2HeaderHeaderToggle,
+    // d2HeaderFullscreen,
+    d2HeaderTheme,
+    d2HeaderMessage,
+    d2HeaderSize,
     d2HeaderLocales,
     d2HeaderSearch,
-    d2HeaderSize,
-    d2HeaderTheme,
-    d2HeaderUser,
-    d2HeaderLog,
     d2HeaderColor,
-    d2HeaderMessage
+    d2HeaderUser
   },
   provide () {
     return {
@@ -152,7 +159,8 @@ export default {
       grayActive: (state) => state.gray.active,
       transitionActive: (state) => state.transition.active,
       asideCollapse: (state) => state.menu.asideCollapse,
-      asideTransition: (state) => state.menu.asideTransition
+      asideTransition: (state) => state.menu.asideTransition,
+      showHeader: (state) => state.menu.showHeader
     }),
     ...mapGetters('d2admin', {
       themeActiveSetting: 'theme/activeSetting'
@@ -184,6 +192,12 @@ export default {
      */
     handleToggleAside () {
       this.asideCollapseToggle()
+    },
+    /**
+     * 接收点击切换顶栏的按钮
+     */
+    handleShowHeader () {
+      this.showHeaderToggle()
     },
     /**
      * 刷新页面

@@ -1,4 +1,4 @@
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import menuMixin from '../mixin/menu'
 import { createMenu } from '../libs/util.menu'
 import BScroll from 'better-scroll'
@@ -10,6 +10,27 @@ export default {
   ],
   render (h) {
     return <div class="d2-layout-header-aside-menu-side">
+      {
+        !this.showHeader
+          ? <router-link
+            to="/index"
+            class={ 'logo-group' + (this.asideTransition ? ' logo-transition' : '') }
+            // style={ 'width: ' + this.asideCollapse ? this.asideWidthCollapse : this.asideWidth }
+            style="width: 100%"
+            flex-box="0"
+          >
+            {
+              this.asideCollapse
+                ? <img
+                  src={`${this.$baseUrl}image/theme/${this.themeActiveSetting.name}/logo/icon-only.png`}
+                />
+                : <img
+                  src={`${this.$baseUrl}image/theme/${this.themeActiveSetting.name}/logo/all.png`}
+                />
+            }
+          </router-link>
+          : null
+      }
       <el-menu
         collapse={ this.asideCollapse }
         collapseTransition={ this.asideTransition }
@@ -39,8 +60,12 @@ export default {
     ...mapState('d2admin/menu', [
       'aside',
       'asideCollapse',
-      'asideTransition'
-    ])
+      'asideTransition',
+      'showHeader'
+    ]),
+    ...mapGetters('d2admin', {
+      themeActiveSetting: 'theme/activeSetting'
+    })
   },
   watch: {
     // 折叠和展开菜单的时候销毁 better scroll
@@ -61,12 +86,12 @@ export default {
     scrollInit () {
       this.BS = new BScroll(this.$el, {
         mouseWheel: true,
-        click: true
+        click: true,
         // 如果你愿意可以打开显示滚动条
-        // scrollbar: {
-        //   fade: true,
-        //   interactive: false
-        // }
+        scrollbar: {
+          fade: true,
+          interactive: false
+        }
       })
     },
     scrollDestroy () {

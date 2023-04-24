@@ -11,7 +11,9 @@ export default {
     // 侧边栏收缩
     asideCollapse: setting.menu.asideCollapse,
     // 侧边栏折叠动画
-    asideTransition: setting.menu.asideTransition
+    asideTransition: setting.menu.asideTransition,
+    // 显示顶栏
+    showHeader: setting.menu.showHeader
   },
   actions: {
     /**
@@ -77,6 +79,37 @@ export default {
       }, { root: true })
     },
     /**
+     * 设置顶栏显示
+     * @param {Object} context
+     * @param {Boolean} status is collapse
+     */
+    async showHeaderSet ({ state, dispatch }, status) {
+      // store 赋值
+      state.showHeader = status
+      // 持久化
+      await dispatch('d2admin/db/set', {
+        dbName: 'sys',
+        path: 'menu.showHeader',
+        value: state.showHeader,
+        user: true
+      }, { root: true })
+    },
+    /**
+     * 切换顶栏显示
+     * @param {Object} context
+     */
+    async showHeaderToggle ({ state, dispatch }) {
+      // store 赋值
+      state.showHeader = !state.showHeader
+      // 持久化
+      await dispatch('d2admin/db/set', {
+        dbName: 'sys',
+        path: 'menu.showHeader',
+        value: state.showHeader,
+        user: true
+      }, { root: true })
+    },
+    /**
      * 持久化数据加载侧边栏设置
      * @param {Object} context
      */
@@ -90,6 +123,7 @@ export default {
       }, { root: true })
       state.asideCollapse = menu.asideCollapse !== undefined ? menu.asideCollapse : setting.menu.asideCollapse
       state.asideTransition = menu.asideTransition !== undefined ? menu.asideTransition : setting.menu.asideTransition
+      state.showHeader = menu.showHeader !== undefined ? menu.showHeader : setting.menu.showHeader
     }
   },
   mutations: {

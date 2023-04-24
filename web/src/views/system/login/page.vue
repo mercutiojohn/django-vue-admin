@@ -1,7 +1,7 @@
 <template>
   <div
     class="w3l-signinform"
-    :style="{background:'url(' +(loginBackground || require('./image/bg.jpg')) +') no-repeat center', backgroundSize: '100% 100%' }"
+    :style="{ background: ( loginBackground ? 'url(' + loginBackground +') no-repeat center' : '#fff') , backgroundSize: '100% 100%' }"
   >
     <!-- container -->
     <div class="wrapper">
